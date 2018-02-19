@@ -1,4 +1,4 @@
-from edc_base.modelform_validators import FormValidator
+from edc_form_validators import FormValidator
 
 from ..constants.lab_result_tb_form_constants import (
     YES_ISONIAZID_PREVENTATIVE_THERAPY, YES_COMBINATION_ANTI_TB)
