@@ -1,1 +1,2 @@
 from .base_risk_assessment_cancer import BaseRiskAssessementCancerFormValidator
+from .lab_result_tb_form_validation import LabResultTbFormValidator
