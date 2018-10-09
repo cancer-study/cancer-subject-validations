@@ -1,8 +1,9 @@
-from django.test import TestCase,tag
+from django.test import TestCase, tag
 from edc_constants.constants import YES, NO
 from ..form_validators import BaseRiskAssessmentValidator
 from django.core.exceptions import ValidationError
-from datetime import datetime
+from edc_base.utils import get_utcnow
+
 
 @tag('1')
 class TestBaseRiskAssessmentForm(TestCase):
@@ -12,25 +13,25 @@ class TestBaseRiskAssessmentForm(TestCase):
             "year_tb": None,
             }
         form_validator = BaseRiskAssessmentValidator(
-            
+
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('year_tb', form_validator._errors)
-    
+
     def test_has_tubercolosis_not_valid(self):
         cleaned_data = {
             "tubercolosis": NO,
-            "year_tb": datetime.year, 
+            "year_tb": get_utcnow().year(),
             }
         form_validator = BaseRiskAssessmentValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('year_tb', form_validator._errors)
-    
+
     def test_has_tuberclosis_valid_valid(self):
         cleaned_data = {
             "tubercolosis": YES,
-            "year_tb": datetime.year,
+            "year_tb": get_utcnow().year(),
             }
         form_validator = BaseRiskAssessmentValidator(
             cleaned_data=cleaned_data)
