@@ -1,10 +1,9 @@
 from django.core.exceptions import ValidationError
-from django.test import TestCase, tag
+from django.test import TestCase
 from edc_constants.constants import YES, NO
 from ..form_validators import BaseRiskAssessmentSmokingFormValidation
 
 
-@tag('2')
 class TestBaseRiskAssessmentSmokingform(TestCase):
 
     def test_cigarette_smoking_valid(self):
