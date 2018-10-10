@@ -8,8 +8,8 @@ from ..form_validators import BaseRiskAssessementCancerFormValidator
 class TestBaseRiskAssessmentCancerForm(TestCase):
 
     def test_family_cancer_type_yes_invalid(self):
-        '''Assert raises if any relative has had any cancer,
-        what type was it
+        '''Assert raises if any relative has had any cancer but
+        none is declared
         '''
         cleaned_data = {
              "family_cancer": YES,
@@ -21,8 +21,8 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         self.assertIn('family_cancer_type', form_validator._errors)
 
     def test_family_cancer_type_no_invalid(self):
-        '''Assert raises if any relative has had any cancer,
-        what type was it
+        '''Assert raises if any relative has had any cancer
+        is no and type is declared
         '''
         cleaned_data = {
              "family_cancer": NO,
@@ -35,7 +35,7 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
 
     def test_family_cancer_type_valid(self):
         '''Assert raises if any relative has had any cancer,
-        what type was it
+        is yes and type defined
         '''
         cleaned_data = {
              "family_cancer": YES,
@@ -50,7 +50,7 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
 
     def test_family_cancer_type_no_valid(self):
         '''Assert raises if any relative has had any cancer,
-        what type was it
+        is no and none
         '''
         cleaned_data = {
              "family_cancer": NO,
@@ -65,7 +65,7 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
 
     def test_had_previous_cancer_yes_invalid(self):
         '''Assert raise if subject has had a previous cancer,
-        what kind of cancer was it
+        is yes and none
         '''
         cleaned_data = {
             "had_previous_cancer": YES,
@@ -80,7 +80,7 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
 
     def test_had_previous_cancer_no_invalid(self):
         '''Assert raise if subject has had a previous cancer,
-        what kind of cancer was it
+        is non and none
         '''
         cleaned_data = {
              "had_previous_cancer": NO,
@@ -95,7 +95,7 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
 
     def test_had_previous_cancer_no_valid(self):
         '''Assert raise if subject has had a previous cancer,
-        what kind of cancer was it
+        is no and type defined
         '''
         cleaned_data = {
              "had_previous_cancer": NO,
@@ -110,7 +110,7 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
 
     def test_had_previous_cancer_yes_valid(self):
         '''Assert raise if subject has had a previous cancer,
-        what kind of cancer was it
+        is yes and none
         '''
         cleaned_data = {
              "had_previous_cancer": YES,
