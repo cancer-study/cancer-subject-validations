@@ -1,4 +1,7 @@
 from .base_risk_assessment_cancer import BaseRiskAssessementCancerFormValidator
 from .base_risk_assessment_validator import BaseRiskAssessmentValidator
 from .lab_result_tb_form_validation import LabResultTbFormValidator
-
+from .base_risk_assessment_chemical_validation import (
+    BaseRiskAssessmentChemicalValidation)
+from .base_risk_assessment_smoking_form_validation import (
+    BaseRiskAssessmentSmokingFormValidation)

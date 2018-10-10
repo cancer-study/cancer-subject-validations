@@ -10,3 +10,9 @@ class BaseRiskAssessementCancerFormValidator(FormValidator):
             field='family_cancer',
             field_required='family_cancer_type',
         )
+
+        self.required_if(
+            YES,
+            field='had_previous_cancel',
+            field_required='previous_cancel'
+            )
