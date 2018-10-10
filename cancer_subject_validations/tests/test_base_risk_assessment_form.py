@@ -21,7 +21,7 @@ class TestBaseRiskAssessmentForm(TestCase):
     def test_has_tubercolosis_not_valid(self):
         cleaned_data = {
             "tubercolosis": NO,
-            "year_tb": get_utcnow().year(),
+            "year_tb": get_utcnow(),
             }
         form_validator = BaseRiskAssessmentValidator(
             cleaned_data=cleaned_data)
@@ -31,7 +31,7 @@ class TestBaseRiskAssessmentForm(TestCase):
     def test_has_tuberclosis_valid_valid(self):
         cleaned_data = {
             "tubercolosis": YES,
-            "year_tb": get_utcnow().year(),
+            "year_tb": get_utcnow(),
             }
         form_validator = BaseRiskAssessmentValidator(
             cleaned_data=cleaned_data)
