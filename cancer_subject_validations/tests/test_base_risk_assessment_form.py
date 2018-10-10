@@ -28,6 +28,18 @@ class TestBaseRiskAssessmentForm(TestCase):
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('year_tb', form_validator._errors)
 
+    def test_has_tubercolosis_not_valid_no(self):
+        cleaned_data = {
+            "tubercolosis": NO,
+            "year_tb": None,
+            }
+        form_validator = BaseRiskAssessmentValidator(
+            cleaned_data=cleaned_data)
+        try:
+            form_validator.validate()
+        except ValidationError as e:
+            self.fail(f'ValidationError unexpectedly raised. Got{e}')
+
     def test_has_tuberclosis_valid_valid(self):
         cleaned_data = {
             "tubercolosis": YES,
