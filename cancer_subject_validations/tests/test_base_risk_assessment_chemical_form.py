@@ -1,16 +1,18 @@
-from django.test import TestCase, tag
+from django.test import TestCase
 from edc_constants.constants import YES, NO
 from ..form_validators import BaseRiskAssessmentChemicalValidation
 from django.core.exceptions import ValidationError
 from edc_base.utils import get_utcnow
 
 
-@tag('1')
-class TestBaseRiskAssessmentForm(TestCase):
+class TestBaseRiskAssessmentChemicalForm(TestCase):
+
     def test_abestos_yes(self):
+        '''Assert raises if asbestos is yes
+        '''
         cleaned_data = {
-            "abestos": YES,
-            "how_long": None,
+            "asbestos": YES,
+            "asbestos_no_protection": None,
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
 
@@ -21,9 +23,11 @@ class TestBaseRiskAssessmentForm(TestCase):
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
 
     def test_abestos_no(self):
+        '''Assert raises if asbestos is no
+        '''
         cleaned_data = {
-            "abestos": NO,
-            "how_long": get_utcnow(),
+            "asbestos": NO,
+            "asbestos_no_protection": get_utcnow(),
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
             cleaned_data=cleaned_data)
@@ -33,9 +37,12 @@ class TestBaseRiskAssessmentForm(TestCase):
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
 
     def test_abestos_no_error(self):
+        '''Assert raises validation error if asbestos is no and asbestos
+        no protection is none
+        '''
         cleaned_data = {
-            "abestos": NO,
-            "how_long": None,
+            "asbestos": NO,
+            "asbestos_no_protection": None,
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
             cleaned_data=cleaned_data)
@@ -45,9 +52,12 @@ class TestBaseRiskAssessmentForm(TestCase):
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
 
     def test_abestos_valid(self):
+        '''Assert raises if asbestos is yes subject has worked with asbestos,
+        how long has he/she worked with it
+        '''
         cleaned_data = {
-            "abestos": YES,
-            "how_long": get_utcnow(),
+            "asbestos": YES,
+            "asbestos_no_protection": get_utcnow(),
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
             cleaned_data=cleaned_data)
@@ -57,30 +67,39 @@ class TestBaseRiskAssessmentForm(TestCase):
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
 
     def test_other_chemicals_yes(self):
+        '''Assert raises if subject has worked with any of the chemicals
+        is yes how long has it been
+        '''
         cleaned_data = {
-            "other_chemicals": YES,
-            "how_long": None,
+            "chemicals": YES,
+            "chemicals_time": None,
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
 
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
-        self.assertIn('how_long', form_validator._errors)
+        self.assertIn('chemicals_time', form_validator._errors)
 
     def test_other_chemicals_no(self):
+        '''Assert raises if subject has worked with any of the chemicals
+        is no how long has it been
+        '''
         cleaned_data = {
-            "other_chemicals": NO,
-            "how_long": get_utcnow(),
+            "chemicals": NO,
+            "chemicals_time": get_utcnow(),
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
-        self.assertIn('how_long', form_validator._errors)
+        self.assertIn('chemicals_time', form_validator._errors)
 
     def test_other_chemicals_no_error(self):
+        '''Assert raises if subject has worked with any of the chemicals
+        is no and none
+        '''
         cleaned_data = {
-            "other_chemicals": NO,
-            "how_long": None,
+            "chemicals": NO,
+            "chemicals_time": None,
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
             cleaned_data=cleaned_data)
@@ -90,9 +109,12 @@ class TestBaseRiskAssessmentForm(TestCase):
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
 
     def test_other_chemicals_valid(self):
+        '''Assert raises if subject has worked with any of the chemicals
+        is yes and gives time
+        '''
         cleaned_data = {
-            "other_chemicals": YES,
-            "how_long": get_utcnow(),
+            "chemicals": YES,
+            "chemicals_time": get_utcnow(),
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
             cleaned_data=cleaned_data)
@@ -102,27 +124,36 @@ class TestBaseRiskAssessmentForm(TestCase):
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
 
     def test_arsenic_smelting_yes(self):
+        '''Assert raises if subject has ever been
+        involved in arsenic smelting,how long has it been
+        '''
         cleaned_data = {
             "arsenic_smelting": YES,
-            "how_long": None,
+            "total_time_no_protection": None,
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
 
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
-        self.assertIn('how_long', form_validator._errors)
+        self.assertIn('total_time_no_protection', form_validator._errors)
 
     def test_arsenic_smelting_no(self):
+        '''Assert raises if subject has ever been
+        involved in arsenic smelting is no and how long has it been
+        '''
         cleaned_data = {
             "arsenic_smelting": NO,
-            "how_long": get_utcnow(),
+            "total_time_no_protection": get_utcnow(),
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
-        self.assertIn('how_long', form_validator._errors)
+        self.assertIn('total_time_no_protection', form_validator._errors)
 
     def test_arsenic_smelting_no_error(self):
+        '''Assert raises if subject has ever been
+        involved in arsenic smelting is no and none
+        '''
         cleaned_data = {
             "arsenic_smelting": NO,
             "how_long": None,
@@ -135,9 +166,12 @@ class TestBaseRiskAssessmentForm(TestCase):
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
 
     def test_arsenic_smelting_valid(self):
+        '''Assert raises if subject has ever been
+        involved in arsenic smelting is yes and how long has it been
+        '''
         cleaned_data = {
             "arsenic_smelting": YES,
-            "how_long": get_utcnow(),
+            "total_time_no_protection": get_utcnow(),
             }
         form_validator = BaseRiskAssessmentChemicalValidation(
             cleaned_data=cleaned_data)
