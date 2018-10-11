@@ -9,3 +9,4 @@ from .cancer_diagnosis_form_validation import CancerDiagnosisFormValidation
 from .oncology_treatment_plan_form_validation import (
     OncologyTreatmentPlanFormValidation)
 from .otrchemo_form_validation import OTRChemoFormValidation
+from .otrradiation_form_validation import OTRRadiationFormValidation
