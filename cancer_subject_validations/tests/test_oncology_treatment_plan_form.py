@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from edc_constants.constants import YES, NO
-from ..form_validators import OncologyTreatmentPlanFormValidation
+from ..form_validators import OncologyTreatmentPlanFormValidator
 
 
 class TestOncologyTreatmentPlanForm(TestCase):
@@ -15,7 +15,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
             'chemotherapy': None,
             'radiation_plan': YES,
             'surgical_plan': YES}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('chemotherapy', form_validator._errors)
@@ -29,7 +29,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
             'chemotherapy': NO,
             'radiation_plan': None,
             'surgical_plan': YES}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('radiation_plan', form_validator._errors)
@@ -43,7 +43,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
             'chemotherapy': YES,
             'radiation_plan': NO,
             'surgical_plan': None}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('surgical_plan', form_validator._errors)
@@ -57,7 +57,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
             'chemotherapy': NO,
             'radiation_plan': YES,
             'surgical_plan': NO}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()
@@ -73,7 +73,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
             'chemotherapy': YES,
             'radiation_plan': None,
             'surgical_plan': None}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('chemotherapy', form_validator._errors)
@@ -87,7 +87,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
             'chemotherapy': None,
             'radiation_plan': YES,
             'surgical_plan': None}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('radiation_plan', form_validator._errors)
@@ -101,7 +101,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
             'chemotherapy': None,
             'radiation_plan': None,
             'surgical_plan': NO}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('surgical_plan', form_validator._errors)
@@ -115,7 +115,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
             'chemotherapy': None,
             'radiation_plan': None,
             'surgical_plan': None}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()
@@ -129,7 +129,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'chemotherapy': YES,
             'chemo_intent': None}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('chemo_intent', form_validator._errors)
@@ -141,7 +141,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'chemotherapy': YES,
             'chemo_intent': 'adjuvant'}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()
@@ -155,7 +155,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'chemotherapy': NO,
             'chemo_intent': 'standard'}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('chemo_intent', form_validator._errors)
@@ -167,7 +167,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'chemotherapy': NO,
             'chemo_intent': None}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()
@@ -181,7 +181,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'surgical_plan': YES,
             'planned_operation': None}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('planned_operation', form_validator._errors)
@@ -193,7 +193,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'surgical_plan': YES,
             'planned_operation': 'double mastectomy, oopherectomy.'}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()
@@ -207,7 +207,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'surgical_plan': NO,
             'planned_operation': 'double mastectomy, oopherectomy.'}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('planned_operation', form_validator._errors)
@@ -219,7 +219,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'surgical_plan': NO,
             'planned_operation': None}
-        form_validator = OncologyTreatmentPlanFormValidation(
+        form_validator = OncologyTreatmentPlanFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()

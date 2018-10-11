@@ -3,7 +3,7 @@ from edc_constants.constants import YES, NO
 from edc_form_validators import FormValidator
 
 
-class CancerDiagnosisFormValidation(FormValidator):
+class CancerDiagnosisFormValidator(FormValidator):
     
     def clean(self):
         required_fields = ['cancer_category', 'date_diagnosed',
