@@ -196,7 +196,8 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         self.assertIn('when_quit', form_validator._errors)
 
     def test_years_smoked_before_valid(self):
-        '''Assert raises subject smokes. You CANNOT give details about quitting.
+        '''Assert raises subject smokes. must provide
+        years_smoked_before
         '''
         cleaned_data = {
             "smoke_now": YES,
@@ -208,7 +209,7 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         self.assertIn('years_smoked_before', form_validator._errors)
 
     def test_years_smoked_before_invalid(self):
-        '''Assert raises subject smokes. You CANNOT give details about quitting.
+        '''True if subject smokes and provides years_smoked_before.
         '''
         cleaned_data = {
             "smoke_now": YES,
@@ -234,7 +235,8 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         self.assertIn('years_smoked_before', form_validator._errors)
 
     def test_years_smoked_before_valid_none(self):
-        '''Assert raises subject smokes. You CANNOT give details about quitting.
+        '''True if subject does not smoke and
+        does not give the years_smoked_before.
         '''
         cleaned_data = {
             "smoke_now": NO,

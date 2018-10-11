@@ -7,8 +7,8 @@ class BaseRiskAssessmentChemicalValidation(FormValidator):
     def clean(self):
         self.required_if(
             YES,
-            field='abestos',
-            field_required='abestos_no_protection',
+            field='asbestos',
+            field_required='asbestos_no_protection',
             )
 
         self.required_if(

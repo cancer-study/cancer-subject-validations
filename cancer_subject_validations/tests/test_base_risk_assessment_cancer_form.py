@@ -1,7 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from edc_constants.constants import YES, NO
-
 from ..form_validators import BaseRiskAssessementCancerFormValidator
 
 
@@ -34,7 +33,7 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         self.assertIn('family_cancer_type', form_validator._errors)
 
     def test_family_cancer_type_valid(self):
-        '''Assert raises if any relative has had any cancer,
+        '''True if any relative has had any cancer,
         is yes and type defined
         '''
         cleaned_data = {
@@ -49,7 +48,7 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
 
     def test_family_cancer_type_no_valid(self):
-        '''Assert raises if any relative has had any cancer,
+        '''True if any relative has had any cancer,
         is no and none
         '''
         cleaned_data = {
@@ -64,8 +63,8 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
 
     def test_had_previous_cancer_yes_invalid(self):
-        '''Assert raise if subject has had a previous cancer,
-        is yes and none
+        '''Assert raises if the subject had previous cancer
+        but did not specify previous cancer.
         '''
         cleaned_data = {
             "had_previous_cancer": YES,
@@ -73,13 +72,11 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
             }
         form_validator = BaseRiskAssessementCancerFormValidator(
             cleaned_data=cleaned_data)
-        try:
-            form_validator.validate()
-        except ValidationError as e:
-            self.fail(f'ValidationError unexpectedly raised. Got{e}')
+        self.assertRaises(ValidationError, form_validator.validate)
+        self.assertIn('previous_cancer', form_validator._errors)
 
     def test_had_previous_cancer_no_invalid(self):
-        '''Assert raise if subject has had a previous cancer,
+        '''True if subject has had a previous cancer,
         is non and none
         '''
         cleaned_data = {
@@ -93,28 +90,13 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         except ValidationError as e:
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
 
-    def test_had_previous_cancer_no_valid(self):
-        '''Assert raise if subject has had a previous cancer,
-        is no and type defined
-        '''
-        cleaned_data = {
-             "had_previous_cancer": NO,
-             "previous_cancer": 'None',
-         }
-        form_validator = BaseRiskAssessementCancerFormValidator(
-             cleaned_data=cleaned_data)
-        try:
-            form_validator.validate()
-        except ValidationError as e:
-            self.fail(f'ValidationError unexpectedly raised. Got{e}')
-
     def test_had_previous_cancer_yes_valid(self):
-        '''Assert raise if subject has had a previous cancer,
-        is yes and none
+        '''True if subject has had a previous cancer,
+        is yes and previous cancer is specified.
         '''
         cleaned_data = {
              "had_previous_cancer": YES,
-             "previous_cancer": 'None',
+             "previous_cancer": 'kln',
          }
         form_validator = BaseRiskAssessementCancerFormValidator(
              cleaned_data=cleaned_data)
