@@ -11,3 +11,4 @@ from .baseline_hiv_history import BaseLineHivHistoryFormValidator
 from .lab_result_tb_form_validation import LabResultTbFormValidator
 from .otrchemo_form_validation import OTRChemoFormValidation
 from .otrradiation_form_validation import OTRRadiationFormValidation
+from .oncology_treatment_completed_form_validation import OncologyTreatmentCompletedFormValidator
