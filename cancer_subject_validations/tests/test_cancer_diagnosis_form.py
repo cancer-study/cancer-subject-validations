@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 from edc_base.utils import get_utcnow
 from edc_constants.constants import YES, NO
-from ..form_validators import CancerDiagnosisFormValidation
+from ..form_validators import CancerDiagnosisFormValidator
 
 
 class TestCancerDiagnosisForm(TestCase):
@@ -15,7 +15,7 @@ class TestCancerDiagnosisForm(TestCase):
             'diagnosis': YES,
             'cancer_category': None,
         }
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.clean)
         self.assertIn('cancer_category', form_validator._errors)
@@ -28,7 +28,7 @@ class TestCancerDiagnosisForm(TestCase):
             'diagnosis': YES,
             'date_diagnosed': None,
         }
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('date_diagnosed', form_validator._errors)
@@ -41,7 +41,7 @@ class TestCancerDiagnosisForm(TestCase):
             'diagnosis': YES,
             'diagnosis_basis': None,
         }
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('diagnosis_basis', form_validator._errors)
@@ -54,7 +54,7 @@ class TestCancerDiagnosisForm(TestCase):
             'diagnosis': YES,
             'cancer_category': 'relapsed',
         }
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()
@@ -69,7 +69,7 @@ class TestCancerDiagnosisForm(TestCase):
             'diagnosis': YES,
             'date_diagnosed': get_utcnow(),
         }
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()
@@ -84,7 +84,7 @@ class TestCancerDiagnosisForm(TestCase):
             'diagnosis': YES,
             'diagnosis_basis': 'clinical_only',
         }
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()
@@ -98,7 +98,7 @@ class TestCancerDiagnosisForm(TestCase):
         cleaned_data = {
             'date_diagnosed': get_utcnow(),
             'cancer_site': None}
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('cancer_site', form_validator._errors)
@@ -110,7 +110,7 @@ class TestCancerDiagnosisForm(TestCase):
         cleaned_data = {
             'date_diagnosed': get_utcnow(),
             'cancer_site': 'C123.4'}
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()
@@ -124,7 +124,7 @@ class TestCancerDiagnosisForm(TestCase):
         cleaned_data = {
             'date_diagnosed': get_utcnow(),
             'diagnosis_word': None}
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('diagnosis_word', form_validator._errors)
@@ -136,7 +136,7 @@ class TestCancerDiagnosisForm(TestCase):
         cleaned_data = {
             'date_diagnosed': get_utcnow(),
             'diagnosis_word': 'cancer diagnosis desc.'}
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         try:
             form_validator.validate()
@@ -149,7 +149,7 @@ class TestCancerDiagnosisForm(TestCase):
 
         cleaned_data = {
             'diagnosis': NO}
-        form_validator = CancerDiagnosisFormValidation(
+        form_validator = CancerDiagnosisFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('diagnosis', form_validator._errors)

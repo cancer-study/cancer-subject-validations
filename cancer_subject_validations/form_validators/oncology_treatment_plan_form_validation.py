@@ -2,7 +2,7 @@ from edc_constants.constants import YES
 from edc_form_validators import FormValidator
 
 
-class OncologyTreatmentPlanFormValidation(FormValidator):
+class OncologyTreatmentPlanFormValidator(FormValidator):
 
     def clean(self):
         required_fields = ['chemotherapy', 'radiation_plan',
