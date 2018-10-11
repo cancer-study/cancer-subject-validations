@@ -50,8 +50,8 @@ class TestOTRRadiationForm(TestCase):
         self.assertIn('concomitant', form_validator._errors)
 
     def test_otrr_valid_yes(self):
-        '''Assert true if patient radiation
-        details are available
+        '''True if patient radiation
+        details are available and other required fields are valid.
         '''
         cleaned_data = {
              'radiation_details': YES,
@@ -67,7 +67,8 @@ class TestOTRRadiationForm(TestCase):
 
     def test_otrr_invalid_yes_concomitant_none(self):
         '''Assert raises if patient radiation details
-        are available but concomitant and amount radiation are none
+        are available but concomitant is yes
+        and amount radiation is none.
         '''
         cleaned_data = {
             'radiation_details': YES,
@@ -81,7 +82,7 @@ class TestOTRRadiationForm(TestCase):
 
     def test_otrr_invalid_no(self):
         '''Assert raises if no patient radiation
-        details are available but concomitant is yes
+        details are available but concomitant is yes.
         '''
         cleaned_data = {
              'radiation_details': NO,
@@ -95,7 +96,7 @@ class TestOTRRadiationForm(TestCase):
         self.assertIn('concomitant', form_validator._errors)
 
     def test_otrr_valid_none(self):
-        '''Assert true if no radiation details
+        '''True if no radiation details.
         '''
         cleaned_data = {
              'radiation_details': NO,
@@ -111,7 +112,7 @@ class TestOTRRadiationForm(TestCase):
 
     def test_otrr_invalid_amount_radiation(self):
         '''Assert raises if no patient radiation
-        details are available but amount_radiation is true
+        details are available but amount_radiation is true.
         '''
         cleaned_data = {
             'radiation_details': NO,

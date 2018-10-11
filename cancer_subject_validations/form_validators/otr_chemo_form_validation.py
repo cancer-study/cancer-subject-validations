@@ -9,6 +9,7 @@ class OTRChemoFormValidation(FormValidator):
             YES,
             field='chemo_delayed',
             field_required='why_delayed',)
+
         self.required_if(
             YES,
             field='chemo_reduced',
