@@ -12,4 +12,4 @@ class CurrentSymptomsFormValidation(FormValidator):
                     YES,
                     field='any_worry',
                     field_required=required,
-                    )
+                )

@@ -56,7 +56,7 @@ class SymptomsAndTestingFormValidator(FormValidator):
                          'Please provide STOP DATE',
             not_required_msg='You CANNOT give a stop date because patient is '
                              'taking HAART NOW'
-            )
+        )
 
         condition = self.cleaned_data.get('facility_first_seen') == '00-0-00'
         self.required_if_true(

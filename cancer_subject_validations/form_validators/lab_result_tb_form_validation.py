@@ -4,7 +4,7 @@ from edc_form_validators import FormValidator
 class LabResultTbFormValidator(FormValidator):
 
     def clean(self):
-        responses=['Yes_(IPT)','Yes_(ATT)']
+        responses = ['Yes_(IPT)', 'Yes_(ATT)']
         self.required_if(
             *responses,
             field='tb_treatment',

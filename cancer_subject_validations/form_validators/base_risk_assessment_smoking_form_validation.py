@@ -14,4 +14,4 @@ class BaseRiskAssessmentSmokingFormValidation(FormValidator):
                     YES,
                     field='smoke_now',
                     field_required=required
-                    )
+                )

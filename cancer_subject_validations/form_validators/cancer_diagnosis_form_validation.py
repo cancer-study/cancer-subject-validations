@@ -4,23 +4,23 @@ from edc_form_validators import FormValidator
 
 
 class CancerDiagnosisFormValidator(FormValidator):
-    
+
     def clean(self):
         required_fields = ['cancer_category', 'date_diagnosed',
                            'diagnosis_basis']
-        
+
         for required in required_fields:
             if required in self.cleaned_data:
                 self.required_if(
                     YES,
                     field='diagnosis',
                     field_required=required)
-        
+
         required_fields = ['diagnosis_word', 'cancer_site']
         condition = self.cleaned_data.get('date_diagnosed') != ''
         for required in required_fields:
             self.required_if_true(
-                condition=condition, 
+                condition=condition,
                 field_required=required)
 
         if self.cleaned_data.get('diagnosis') == NO:

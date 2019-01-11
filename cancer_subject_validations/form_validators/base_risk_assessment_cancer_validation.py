@@ -15,4 +15,4 @@ class BaseRiskAssessementCancerFormValidator(FormValidator):
             YES,
             field='had_previous_cancer',
             field_required='previous_cancer'
-            )
+        )
