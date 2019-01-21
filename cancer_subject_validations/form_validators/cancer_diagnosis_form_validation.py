@@ -17,7 +17,7 @@ class CancerDiagnosisFormValidator(FormValidator):
                     field_required=required)
 
         required_fields = ['diagnosis_word', 'cancer_site']
-        condition = self.cleaned_data.get('date_diagnosed') != ''
+        condition = self.cleaned_data.get('date_diagnosed') != None
         for required in required_fields:
             self.required_if_true(
                 condition=condition,
