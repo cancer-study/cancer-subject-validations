@@ -6,7 +6,6 @@ from django.core.exceptions import ValidationError
 
 class TestBaseRiskAssessmentChemicalForm(TestCase):
 
-    @tag('22')
     def test_breastfed_with_children(self):
         options = {
             'children': 0,
