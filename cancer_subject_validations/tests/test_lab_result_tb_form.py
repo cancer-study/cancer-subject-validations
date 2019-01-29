@@ -28,7 +28,7 @@ class TestLabResultTbForm(TestCase):
             form_validator.validate()
         except ValidationError as e:
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
-    
+
     def test_tb_treatment_att_yes_start_required(self):
         cleaned_data = {
             'tb_treatment': 'Yes_(ATT)',
@@ -38,7 +38,7 @@ class TestLabResultTbForm(TestCase):
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('tb_treatment_start', form_validator._errors)
-    
+
     def test_tb_treatment_att_yes_start_valid(self):
         cleaned_data = {
             'tb_treatment': 'Yes_(ATT)',
@@ -50,7 +50,7 @@ class TestLabResultTbForm(TestCase):
             form_validator.validate()
         except ValidationError as e:
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
-    
+
     def test_tb_treatment_no_valid(self):
         cleaned_data = {
             'tb_treatment': NO,
@@ -62,7 +62,7 @@ class TestLabResultTbForm(TestCase):
             form_validator.validate()
         except ValidationError as e:
             self.fail(f'ValidationError unexpectedly raised. Got{e}')
-    
+
     def test_tb_treatment_no_invalid(self):
         cleaned_data = {
             'tb_treatment': NO,
