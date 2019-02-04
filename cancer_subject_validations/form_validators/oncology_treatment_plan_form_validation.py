@@ -1,4 +1,4 @@
-from edc_constants.constants import YES
+from edc_constants.constants import YES, NO
 from edc_form_validators import FormValidator
 
 
@@ -12,6 +12,14 @@ class OncologyTreatmentPlanFormValidator(FormValidator):
                 YES,
                 field='treatment_plan',
                 field_required=required,)
+
+        condition = (self.cleaned_data.get('chemotherapy') != YES or
+                     self.cleaned_data.get('radiation_plan') != YES or
+                     self.cleaned_data.get('surgical_plan') != YES)
+        self.required_if_true(
+            condition=condition,
+            field_required='chemotherapy',
+            required_msg='Chemotherapy ')
 
         self.required_if(
             YES,
