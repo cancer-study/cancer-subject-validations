@@ -18,4 +18,6 @@ from .oncology_treatment_completed_form_validation import (
 from .otr_chemo_form_validation import OTRChemoFormValidation
 from .otr_radiation_form_validation import OTRRadiationFormValidation
 from .current_symptoms_form_validation import CurrentSymptomsFormValidation
-from .base_risk_assessment_female_form_validation import BaseRiskAssessmentFemaleValidation
+from .base_risk_assessment_female_form_validation import (
+    BaseRiskAssessmentFemaleValidation
+)

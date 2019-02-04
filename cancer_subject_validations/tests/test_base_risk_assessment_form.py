@@ -10,7 +10,7 @@ class TestBaseRiskAssessmentForm(TestCase):
         cleaned_data = {
             "tubercolosis": YES,
             "year_tb": None,
-            }
+        }
         form_validator = BaseRiskAssessmentFormValidator(
 
             cleaned_data=cleaned_data)
@@ -21,7 +21,7 @@ class TestBaseRiskAssessmentForm(TestCase):
         cleaned_data = {
             "tubercolosis": NO,
             "year_tb": get_utcnow(),
-            }
+        }
         form_validator = BaseRiskAssessmentFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -31,7 +31,7 @@ class TestBaseRiskAssessmentForm(TestCase):
         cleaned_data = {
             "tubercolosis": NO,
             "year_tb": None,
-            }
+        }
         form_validator = BaseRiskAssessmentFormValidator(
             cleaned_data=cleaned_data)
         try:
@@ -43,7 +43,7 @@ class TestBaseRiskAssessmentForm(TestCase):
         cleaned_data = {
             "tubercolosis": YES,
             "year_tb": get_utcnow(),
-            }
+        }
         form_validator = BaseRiskAssessmentFormValidator(
             cleaned_data=cleaned_data)
         try:
