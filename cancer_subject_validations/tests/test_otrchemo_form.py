@@ -12,11 +12,12 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         yes but no reason given
         '''
         cleaned_data = {
-             "chemo_delayed": YES,
-             "why_delayed": None,
-         }
+            "chemo_delays": YES,
+            "why_delayed": None,
+        }
+
         form_validator = OTRChemoFormValidation(
-             cleaned_data=cleaned_data)
+            cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('why_delayed', form_validator._errors)
 
@@ -25,11 +26,11 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         yes and reason is given.
         '''
         cleaned_data = {
-             "chemo_delayed": YES,
-             "why_delayed": 'Hematox',
-         }
+            "chemo_delays": YES,
+            "why_delayed": 'Hematox',
+        }
         form_validator = OTRChemoFormValidation(
-             cleaned_data=cleaned_data)
+            cleaned_data=cleaned_data)
         try:
             form_validator.validate()
         except ValidationError as e:
@@ -40,11 +41,11 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         no and reason is not given.
         '''
         cleaned_data = {
-             "chemo_delayed": NO,
-             "why_delayed": None,
-         }
+            "chemo_delays": NO,
+            "why_delayed": None,
+        }
         form_validator = OTRChemoFormValidation(
-             cleaned_data=cleaned_data)
+            cleaned_data=cleaned_data)
         try:
             form_validator.validate()
         except ValidationError as e:
@@ -55,11 +56,11 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         no but reason is given.
         '''
         cleaned_data = {
-             "chemo_delayed": NO,
-             "why_delayed": 'Hematox',
-         }
+            "chemo_delays": NO,
+            "why_delayed": 'Hematox',
+        }
         form_validator = OTRChemoFormValidation(
-             cleaned_data=cleaned_data)
+            cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('why_delayed', form_validator._errors)
 
@@ -68,11 +69,11 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         yes but no reason given.
         '''
         cleaned_data = {
-             "chemo_reduced": YES,
-             "why_reduced": None,
-         }
+            "chemo_reduced": YES,
+            "why_reduced": None,
+        }
         form_validator = OTRChemoFormValidation(
-             cleaned_data=cleaned_data)
+            cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('why_reduced', form_validator._errors)
 
@@ -81,11 +82,11 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         yes and reason is given.
         '''
         cleaned_data = {
-             "chemo_reduced": YES,
-             "why_reduced": 'Hematox',
-         }
+            "chemo_reduced": YES,
+            "why_reduced": 'Hematox',
+        }
         form_validator = OTRChemoFormValidation(
-             cleaned_data=cleaned_data)
+            cleaned_data=cleaned_data)
         try:
             form_validator.validate()
         except ValidationError as e:
@@ -96,11 +97,11 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         no but reason is given.
         '''
         cleaned_data = {
-             "chemo_reduced": NO,
-             "why_reduced": 'Hematox',
-         }
+            "chemo_reduced": NO,
+            "why_reduced": 'Hematox',
+        }
         form_validator = OTRChemoFormValidation(
-             cleaned_data=cleaned_data)
+            cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('why_reduced', form_validator._errors)
 
@@ -109,11 +110,11 @@ class TestBaseRiskAssessmentCancerForm(TestCase):
         no and reason none.
         '''
         cleaned_data = {
-             "chemo_reduced": NO,
-             "why_reduced": None,
-         }
+            "chemo_reduced": NO,
+            "why_reduced": None,
+        }
         form_validator = OTRChemoFormValidation(
-             cleaned_data=cleaned_data)
+            cleaned_data=cleaned_data)
         try:
             form_validator.validate()
         except ValidationError as e:

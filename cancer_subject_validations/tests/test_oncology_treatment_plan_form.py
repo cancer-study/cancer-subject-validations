@@ -1,9 +1,10 @@
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.test import TestCase, tag
 from edc_constants.constants import YES, NO
 from ..form_validators import OncologyTreatmentPlanFormValidator
 
 
+@tag('op')
 class TestOncologyTreatmentPlanForm(TestCase):
 
     def test_treatment_plan_yes_chemo_required(self):

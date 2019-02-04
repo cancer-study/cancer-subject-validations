@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from edc_constants.constants import YES, NO
 from edc_form_validators import FormValidator
 
@@ -12,14 +13,6 @@ class OncologyTreatmentPlanFormValidator(FormValidator):
                 YES,
                 field='treatment_plan',
                 field_required=required,)
-
-        condition = (self.cleaned_data.get('chemotherapy') != YES or
-                     self.cleaned_data.get('radiation_plan') != YES or
-                     self.cleaned_data.get('surgical_plan') != YES)
-        self.required_if_true(
-            condition=condition,
-            field_required='chemotherapy',
-            required_msg='Chemotherapy ')
 
         self.required_if(
             YES,
@@ -40,3 +33,15 @@ class OncologyTreatmentPlanFormValidator(FormValidator):
             not_required_msg='NO surgery planned. Do not describe planned '
                              'operation',
             inverse=True,)
+
+        condition = (
+            self.cleaned_data.get('treatment_plan') == YES and
+            self.cleaned_data.get('chemotherapy') != YES and
+            self.cleaned_data.get('radiation_plan') != YES and
+            self.cleaned_data.get('surgical_plan') != YES)
+
+        if condition:
+            required_msg = {'treatment_plan':
+                            'Chemotherapy plan or Radiation plan or Surgery must be Yes.'}
+            self._errors.update(required_msg)
+            raise ValidationError(required_msg)
