@@ -76,8 +76,7 @@ class SymptomsAndTestingFormValidator(FormValidator):
                 field='hiv_test_result',
                 field_required=required)
 
-        if self.cleaned_data.get('hiv_test_result'):
-            if self.cleaned_data.get('hiv_result'):
+        if not self.cleaned_data.get('hiv_test_result') == self.cleaned_data.get('hiv_result'):
                 hiv_test_result = self.cleaned_data.get('hiv_test_result')
                 message = {
                     'hiv_result': f'You specified that participant is {hiv_test_result}'
