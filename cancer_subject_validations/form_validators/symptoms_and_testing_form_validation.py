@@ -14,6 +14,14 @@ class SymptomsAndTestingFormValidator(FormValidator):
                          ' what was the test result?',
             not_required_msg='If subject has NEVER tested for HIV, '
                              'do not key any result details',)
+        if not self.cleaned_data.get('hiv_test_result') == self.cleaned_data.get('hiv_result'):
+                hiv_test_result = self.cleaned_data.get('hiv_test_result')
+                message = {
+                    'hiv_result': f'You specified that participant is {hiv_test_result}'
+                    f' hiv test result must also be {hiv_test_result}'
+                }
+                self._errors.update(message)
+                raise ValidationError(message)
 
         self.required_if(
             NEG,
@@ -66,21 +74,9 @@ class SymptomsAndTestingFormValidator(FormValidator):
             required_msg='if facility is 00-0-00, please provide the name '
                          'of the facility')
 
-        required_fields = [
-            'arv_art_therapy', 'arv_art_start_date',
-            'arv_art_now', 'art_art_stop_date'
-        ]
-        for required in required_fields:
-            self.required_if(
-                YES,
-                field='hiv_test_result',
-                field_required=required)
+        self.required_if(
+            POS,
+            field='hiv_test_result',
+            field_required='arv_art_therapy')
 
-        if not self.cleaned_data.get('hiv_test_result') == self.cleaned_data.get('hiv_result'):
-                hiv_test_result = self.cleaned_data.get('hiv_test_result')
-                message = {
-                    'hiv_result': f'You specified that participant is {hiv_test_result}'
-                    f' hiv test result must also be {hiv_test_result}'
-                }
-                self._errors.update(message)
-                raise ValidationError(message)
+       
