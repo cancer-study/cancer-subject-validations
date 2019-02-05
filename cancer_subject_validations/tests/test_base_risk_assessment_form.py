@@ -6,9 +6,10 @@ from edc_base.utils import get_utcnow
 
 
 class TestBaseRiskAssessmentForm(TestCase):
+
     def test_has_tubercolosis_valid(self):
         cleaned_data = {
-            "tubercolosis": YES,
+            "tuberculosis": YES,
             "year_tb": None,
         }
         form_validator = BaseRiskAssessmentFormValidator(
@@ -19,7 +20,7 @@ class TestBaseRiskAssessmentForm(TestCase):
 
     def test_has_tubercolosis_not_valid(self):
         cleaned_data = {
-            "tubercolosis": NO,
+            "tuberculosis": NO,
             "year_tb": get_utcnow(),
         }
         form_validator = BaseRiskAssessmentFormValidator(
@@ -29,7 +30,7 @@ class TestBaseRiskAssessmentForm(TestCase):
 
     def test_has_tubercolosis_not_valid_no(self):
         cleaned_data = {
-            "tubercolosis": NO,
+            "tuberculosis": NO,
             "year_tb": None,
         }
         form_validator = BaseRiskAssessmentFormValidator(
@@ -41,7 +42,7 @@ class TestBaseRiskAssessmentForm(TestCase):
 
     def test_has_tuberclosis_valid_valid(self):
         cleaned_data = {
-            "tubercolosis": YES,
+            "tuberculosis": YES,
             "year_tb": get_utcnow(),
         }
         form_validator = BaseRiskAssessmentFormValidator(

@@ -17,7 +17,8 @@ class SymptomsAndTestingFormValidator(FormValidator):
 
         if self.cleaned_data.get('hiv_test_result') and \
                 self.cleaned_data.get('hiv_result'):
-            if not self.cleaned_data.get('hiv_test_result') == self.cleaned_data.get('hiv_result'):
+            if not self.cleaned_data.get('hiv_test_result') == \
+                self.cleaned_data.get('hiv_result'):
                 hiv_test_result = self.cleaned_data.get('hiv_test_result')
                 message = {
                     'hiv_result': f'You specified that participant is {hiv_test_result}'
@@ -76,3 +77,11 @@ class SymptomsAndTestingFormValidator(FormValidator):
             field_required='facility_first_seen_other',
             required_msg='if facility is 00-0-00, please provide the name '
                          'of the facility')
+
+        required_fields = ['arv_art_therapy']
+        for required in required_fields:
+            self.not_required_if(
+                NEG,
+                field='hiv_result',
+                field_required=required
+            )
