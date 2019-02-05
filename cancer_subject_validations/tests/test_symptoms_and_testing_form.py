@@ -32,7 +32,9 @@ class TestSymptomsAndTestingForm(TestCase):
     def test_hiv_tested_no_hiv_result_invalid(self):
         cleaned_data = {
             'hiv_tested': NO,
-            'hiv_test_result': NEG}
+            'hiv_test_result': NEG,
+            'hiv_result': NEG
+        }
         form_validator = SymptomsAndTestingFormValidator(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
