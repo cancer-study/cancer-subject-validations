@@ -7,6 +7,6 @@ class BaseRiskAssessmentFormValidator(FormValidator):
     def clean(self):
         self.required_if(
             YES,
-            field='tubercolosis',
+            field='tuberculosis',
             field_required='year_tb',
         )
