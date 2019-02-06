@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'django_revision.apps.AppConfig',
     'rest_framework',
     'rest_framework.authtoken',
+    'edc_device.apps.AppConfig',
+    'edc_protocol.apps.AppConfig',
+    'cancer_subject_validations.apps.AppConfig'
 ]
 
 
