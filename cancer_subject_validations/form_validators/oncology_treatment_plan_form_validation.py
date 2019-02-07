@@ -6,8 +6,7 @@ from edc_form_validators import FormValidator
 class OncologyTreatmentPlanFormValidator(FormValidator):
 
     def clean(self):
-        required_fields = ['chemotherapy', 'chemo_intent', 'radiation_plan',
-                           'surgical_plan']
+        required_fields = ['chemotherapy', 'radiation_plan', 'surgical_plan']
         for required in required_fields:
             self.required_if(
                 YES,

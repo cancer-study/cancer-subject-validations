@@ -13,6 +13,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
 
         cleaned_data = {
             'treatment_plan': YES,
+             'chemo_intent': NO,
             'chemotherapy': None,
             'radiation_plan': YES,
             'surgical_plan': YES}
@@ -28,6 +29,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'treatment_plan': YES,
             'chemotherapy': NO,
+             'chemo_intent': NO,
             'radiation_plan': None,
             'surgical_plan': YES}
         form_validator = OncologyTreatmentPlanFormValidator(
@@ -42,6 +44,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'treatment_plan': YES,
             'chemotherapy': YES,
+            'chemo_intent': NO,
             'radiation_plan': NO,
             'surgical_plan': None}
         form_validator = OncologyTreatmentPlanFormValidator(
@@ -72,6 +75,7 @@ class TestOncologyTreatmentPlanForm(TestCase):
         cleaned_data = {
             'treatment_plan': NO,
             'chemotherapy': YES,
+            'chemo_intent': NO,
             'radiation_plan': None,
             'surgical_plan': None}
         form_validator = OncologyTreatmentPlanFormValidator(
