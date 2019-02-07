@@ -1,12 +1,12 @@
 from django.core.exceptions import ValidationError
-from edc_constants.constants import YES, NO
+from edc_constants.constants import YES
 from edc_form_validators import FormValidator
 
 
 class OncologyTreatmentPlanFormValidator(FormValidator):
 
     def clean(self):
-        required_fields = ['chemotherapy', 'radiation_plan',
+        required_fields = ['chemotherapy', 'chemo_intent', 'radiation_plan',
                            'surgical_plan']
         for required in required_fields:
             self.required_if(
