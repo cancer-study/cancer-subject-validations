@@ -202,7 +202,7 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         cleaned_data = {
             "smoke_now": YES,
             "years_smoked_before": None,
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -240,7 +240,7 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         '''
         cleaned_data = {
             "smoke_now": NO,
-            "years_smoked_before": None,
+            "years_smoked": None,
             }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)

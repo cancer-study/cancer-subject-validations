@@ -26,7 +26,16 @@ class CancerDiagnosisFormValidator(FormValidator):
         if self.cleaned_data.get('diagnosis') == NO:
             message = {'diagnosis':
                        'AT enrollment you mentioned that a cancer diagnosis '
-                       'was documented, so answer to whether a cancer diagnosis '
+                       'was documented, so answer to whether a cancer diagnosis'
                        'has been made should be YES. please correct!'}
             self._errors.update(message)
             raise ValidationError(message)
+
+        required_fields = ['diagnosis_word', 'cancer_site',
+                           'clinical_diagnosis']
+        for required in required_fields:
+            self.required_if(
+                YES,
+                field='diagnosis',
+                field_required=required
+            )
