@@ -21,3 +21,4 @@ from .otr_radiation_form_validation import OTRRadiationFormValidation
 from .subject_consent_form_validation import SubjectConsentFormValidation
 from .symptoms_and_testing_form_validation import (
     SymptomsAndTestingFormValidator)
+from .lab_result_height_weight_validation import LabResultsHeightWeightValidator
