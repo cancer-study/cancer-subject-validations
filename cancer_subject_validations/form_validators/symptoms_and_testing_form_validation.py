@@ -80,7 +80,7 @@ class SymptomsAndTestingFormValidator(FormValidator):
         required_fields = ['arv_art_therapy']
         for required in required_fields:
             self.required_if(
-                POS,
+                'Pos',
                 field='hiv_result',
                 field_required=required
             )

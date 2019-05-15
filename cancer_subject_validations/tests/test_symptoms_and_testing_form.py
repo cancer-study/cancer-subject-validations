@@ -293,6 +293,7 @@ class TestSymptomsAndTestingForm(TestCase):
             'hiv_test_result': POS,
             'pos_date': get_utcnow().date(),
             'hiv_result': 'Pos',
+            'arv_art_therapy': NO
         }
         form_validator = SymptomsAndTestingFormValidator(
             cleaned_data=cleaned_data)
