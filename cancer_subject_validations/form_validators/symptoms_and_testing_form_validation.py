@@ -6,6 +6,15 @@ from edc_form_validators import FormValidator
 class SymptomsAndTestingFormValidator(FormValidator):
 
     def clean(self):
+
+        if (self.cleaned_data.get('facility_first_seen') and not
+                self.cleaned_data.get('facility_first_seen_other')):
+            message = {
+                'facility_first_seen_other': 'Please provide the name of the facility'
+            }
+            self._errors.update(message)
+            raise ValidationError(message)
+
         self.required_if(
             YES,
             field='hiv_tested',
