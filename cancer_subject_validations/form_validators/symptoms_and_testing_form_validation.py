@@ -16,7 +16,8 @@ class SymptomsAndTestingFormValidator(FormValidator):
                              'do not key any result details',)
 
         if self.cleaned_data.get('hiv_test_result') and self.cleaned_data.get('hiv_result'):
-            if self.cleaned_data.get('hiv_test_result') != self.cleaned_data.get('hiv_result'):
+            if (self.cleaned_data.get('hiv_test_result') !=
+                    self.cleaned_data.get('hiv_result').upper()):
                 hiv_test_result = self.cleaned_data.get('hiv_test_result')
                 message = {
                     'hiv_result': f'You specified that participant is {hiv_test_result}'
@@ -31,7 +32,7 @@ class SymptomsAndTestingFormValidator(FormValidator):
             field_required='neg_date',
             required_msg='If most recent HIV test result is neg, '
                          'provide date of last negative result',
-            inverse=POS,
+            #             inverse=POS,
             not_required_msg='Subject is POS, you cannot answer NEG date')
 
         self.required_if(
@@ -40,7 +41,7 @@ class SymptomsAndTestingFormValidator(FormValidator):
             field_required='pos_date',
             required_msg='If most recent HIV test result is neg, '
                          'provied date of last positive result',
-            inverse=NEG,
+            #             inverse=NEG,
             not_required_msg='Subject is NEG, you cannot answer POS date')
 
         required_fields = ['arv_art_start_date', 'arv_art_now']
