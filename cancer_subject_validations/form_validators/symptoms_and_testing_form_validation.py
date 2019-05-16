@@ -79,13 +79,6 @@ class SymptomsAndTestingFormValidator(FormValidator):
                              'taking HAART NOW'
         )
 
-        condition = self.cleaned_data.get('facility_first_seen') == '00-0-00'
-        self.required_if_true(
-            condition=condition,
-            field_required='facility_first_seen_other',
-            required_msg='if facility is 00-0-00, please provide the name '
-                         'of the facility')
-
         required_fields = ['arv_art_therapy']
         for required in required_fields:
             self.required_if(
