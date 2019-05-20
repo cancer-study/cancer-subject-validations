@@ -1,6 +1,5 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-from edc_constants.constants import YES, NO
 from ..form_validators import BaseRiskAssessmentSmokingFormValidation
 
 
@@ -11,9 +10,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         per day does he/she smoke
         '''
         cleaned_data = {
-            "smoke_now": YES,
+            "smoke_now": ' yes',
             "cigarette_smoking": None,
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -24,9 +23,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         per day does he/she smoke
         '''
         cleaned_data = {
-            "smoked_now": NO,
+            "smoked_now": ' no, I used to smoke but quit',
             "cigarette_smoking": '1',
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -39,9 +38,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         per day does he/she smoke
         '''
         cleaned_data = {
-            "smoke_now": NO,
+            "smoke_now": ' no, I used to smoke but quit',
             "cigarette_smoking": None,
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -54,9 +53,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         per day does he/she smoke
         '''
         cleaned_data = {
-            "smoke_now": YES,
+            "smoke_now": ' yes',
             "cigarette_smoking": None,
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -66,9 +65,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         '''Assert raises subject smokes.How many years has he/she smoked?
         '''
         cleaned_data = {
-            "smoke_now": YES,
+            "smoke_now": ' yes',
             "years_smoked": None,
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -78,9 +77,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         '''Assert raises subject smokes.How many years has he/she smoked?
         '''
         cleaned_data = {
-            "smoke_now": NO,
+            "smoke_now": ' no, I used to smoke but quit',
             "years_smoke": '1',
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -92,9 +91,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         '''Assert raises subject smokes.How many years has he/she smoked?
         '''
         cleaned_data = {
-            "smoke_now": YES,
+            "smoke_now": ' yes',
             "years_smoke": '1',
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -107,9 +106,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         DON'T answer question about: How many cigarettes DID you smoke per day
         '''
         cleaned_data = {
-            "smoke_now": YES,
+            "smoke_now": ' yes',
             "cigarette_smoked": None,
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -120,9 +119,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         DON'T answer question about: How many cigarettes DID you smoke per day
         '''
         cleaned_data = {
-            "smoke_now": NO,
+            "smoke_now": ' no, I used to smoke but quit',
             "cigarette_smoked": '1',
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -133,9 +132,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         DON'T answer question about: How many cigarettes DID you smoke per day
         '''
         cleaned_data = {
-            "smoke_now": YES,
+            "smoke_now": ' yes',
             "cigarette_smoked": '1',
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -147,9 +146,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         '''Assert raises subject smokes. You cannot give info about quitting.
         '''
         cleaned_data = {
-            "smoke_now": YES,
+            "smoke_now": ' yes',
             "when_quit": '1',
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -161,9 +160,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         '''Assert raises subject smokes. You cannot give info about quitting.
         '''
         cleaned_data = {
-            "smoke_now": NO,
+            "smoke_now": ' no, I used to smoke but quit',
             "when_quit": '1',
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -173,9 +172,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         '''Assert raises subject smokes. You cannot give info about quitting.
         '''
         cleaned_data = {
-            "smoke_now": NO,
+            "smoke_now": ' no, I used to smoke but quit',
             "when_quit": None,
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -187,9 +186,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         '''Assert raises subject smokes. You cannot give info about quitting.
         '''
         cleaned_data = {
-            "smoke_now": YES,
+            "smoke_now": ' yes',
             "when_quit": None,
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -200,7 +199,7 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         years_smoked_before
         '''
         cleaned_data = {
-            "smoke_now": YES,
+            "smoke_now": ' yes',
             "years_smoked_before": None,
         }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
@@ -212,9 +211,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         '''True if subject smokes and provides years_smoked_before.
         '''
         cleaned_data = {
-            "smoke_now": YES,
+            "smoke_now": ' yes',
             "years_smoked_before": '1',
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -226,9 +225,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         '''Assert raises subject smokes. You CANNOT give details about quitting.
         '''
         cleaned_data = {
-            "smoke_now": NO,
+            "smoke_now": ' no, I used to smoke but quit',
             "years_smoked_before": '1',
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -239,9 +238,9 @@ class TestBaseRiskAssessmentSmokingform(TestCase):
         does not give the years_smoked_before.
         '''
         cleaned_data = {
-            "smoke_now": NO,
+            "smoke_now": ' no, I used to smoke but quit',
             "years_smoked": None,
-            }
+        }
         form_validator = BaseRiskAssessmentSmokingFormValidation(
             cleaned_data=cleaned_data)
         try:
