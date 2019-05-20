@@ -7,13 +7,13 @@ class BaseRiskAssessmentSmokingFormValidation(FormValidator):
     def clean(self):
 
         self.required_if(
-            YES,
+            ' yes',
             field='smoke_now',
             field_required='cigarette_smoking'
         )
 
         self.required_if(
-            YES,
+            ' yes',
             field='smoke_now',
             field_required='years_smoked'
         )
@@ -23,6 +23,6 @@ class BaseRiskAssessmentSmokingFormValidation(FormValidator):
         for required in required_fields:
             if required in self.cleaned_data:
                 self.required_if(
-                    NO,
+                    ' no, I used to smoke but quit',
                     field='smoke_now',
                     field_required=required)
