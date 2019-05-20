@@ -26,10 +26,8 @@ class OncologyTreatmentCompletedFormValidator(FormValidator):
         self.validate_surgery_plan()
 
     def validate_surgery_plan(self):
-
         oncology_treatment_plan = self.oncology_treatment_plan_cls.objects.filter(
-            subject_identifier=self.cleaned_data.get('subject_visit'
-                                                     ).appointment.subject_identifier
+            subject_visit=self.cleaned_data.get('subject_visit')
             ).order_by('created').first()
 
         if oncology_treatment_plan and oncology_treatment_plan.surgical_plan != YES:
