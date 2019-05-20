@@ -23,6 +23,7 @@ class OncologyTreatmentCompletedFormValidator(FormValidator):
                 field_required='treatment_detail',
                 required_msg='Treatment is planned. Please provide details'
                              ' of the treatment')
+        self.validate_surgery_plan()
 
     def validate_surgery_plan(self):
 

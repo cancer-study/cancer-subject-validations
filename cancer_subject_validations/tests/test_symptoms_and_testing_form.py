@@ -1,11 +1,14 @@
-from django.core.exceptions import ValidationError
-from django.test import TestCase
-from edc_base.utils import get_utcnow
-from edc_constants.constants import (YES, NO, NEG, POS)
-from ..form_validators import SymptomsAndTestingFormValidator
 from _datetime import timedelta
 
+from django.core.exceptions import ValidationError
+from django.test import TestCase, tag
+from edc_base.utils import get_utcnow
+from edc_constants.constants import (YES, NO, NEG, POS)
 
+from ..form_validators import SymptomsAndTestingFormValidator
+
+
+@tag('sat')
 class TestSymptomsAndTestingForm(TestCase):
 
     def test_hiv_tested_yes_hiv_result_required(self):
@@ -277,6 +280,21 @@ class TestSymptomsAndTestingForm(TestCase):
         cleaned_data = {
             'facility_first_seen': '00-0-11',
             'facility_first_seen_other': None}
+        form_validator = SymptomsAndTestingFormValidator(
+            cleaned_data=cleaned_data)
+        try:
+            form_validator.validate()
+        except ValidationError as e:
+            self.fail(f'ValidationError raised unexpectedly. Got{e}')
+
+    def test_pos_test_valid(self):
+        cleaned_data = {
+            'hiv_tested': YES,
+            'hiv_test_result': POS,
+            'pos_date': get_utcnow().date(),
+            'hiv_result': 'Pos',
+            'arv_art_therapy': NO
+        }
         form_validator = SymptomsAndTestingFormValidator(
             cleaned_data=cleaned_data)
         try:

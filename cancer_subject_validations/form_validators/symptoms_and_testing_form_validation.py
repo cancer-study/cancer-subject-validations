@@ -6,6 +6,15 @@ from edc_form_validators import FormValidator
 class SymptomsAndTestingFormValidator(FormValidator):
 
     def clean(self):
+
+        if (self.cleaned_data.get('facility_first_seen') and not
+                self.cleaned_data.get('facility_first_seen_other')):
+            message = {
+                'facility_first_seen_other': 'Please provide the name of the facility'
+            }
+            self._errors.update(message)
+            raise ValidationError(message)
+
         self.required_if(
             YES,
             field='hiv_tested',
@@ -15,10 +24,9 @@ class SymptomsAndTestingFormValidator(FormValidator):
             not_required_msg='If subject has NEVER tested for HIV, '
                              'do not key any result details',)
 
-        if self.cleaned_data.get('hiv_test_result') and \
-                self.cleaned_data.get('hiv_result'):
-            if not self.cleaned_data.get('hiv_test_result') == \
-                    self.cleaned_data.get('hiv_result'):
+        if self.cleaned_data.get('hiv_test_result') and self.cleaned_data.get('hiv_result'):
+            if (self.cleaned_data.get('hiv_test_result') !=
+                    self.cleaned_data.get('hiv_result').upper()):
                 hiv_test_result = self.cleaned_data.get('hiv_test_result')
                 message = {
                     'hiv_result': f'You specified that participant is {hiv_test_result}'
@@ -33,7 +41,7 @@ class SymptomsAndTestingFormValidator(FormValidator):
             field_required='neg_date',
             required_msg='If most recent HIV test result is neg, '
                          'provide date of last negative result',
-            inverse=POS,
+            #             inverse=POS,
             not_required_msg='Subject is POS, you cannot answer NEG date')
 
         self.required_if(
@@ -42,7 +50,7 @@ class SymptomsAndTestingFormValidator(FormValidator):
             field_required='pos_date',
             required_msg='If most recent HIV test result is neg, '
                          'provied date of last positive result',
-            inverse=NEG,
+            #             inverse=NEG,
             not_required_msg='Subject is NEG, you cannot answer POS date')
 
         required_fields = ['arv_art_start_date', 'arv_art_now']
@@ -71,17 +79,10 @@ class SymptomsAndTestingFormValidator(FormValidator):
                              'taking HAART NOW'
         )
 
-        condition = self.cleaned_data.get('facility_first_seen') == '00-0-00'
-        self.required_if_true(
-            condition=condition,
-            field_required='facility_first_seen_other',
-            required_msg='if facility is 00-0-00, please provide the name '
-                         'of the facility')
-
         required_fields = ['arv_art_therapy']
         for required in required_fields:
             self.required_if(
-                POS,
+                'Pos',
                 field='hiv_result',
                 field_required=required
             )
