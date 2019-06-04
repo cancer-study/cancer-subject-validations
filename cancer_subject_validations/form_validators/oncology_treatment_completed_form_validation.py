@@ -13,22 +13,12 @@ class OncologyTreatmentCompletedFormValidator(FormValidator):
         return django_apps.get_model(self.oncology_treatment_plan_model)
 
     def clean(self):
-
-        fields = ['patient_had_chemo', 'patient_had_radiation',
-                  'patient_had_surgery']
-        for field in fields:
-            self.required_if(
-                YES,
-                field=field,
-                field_required='treatment_detail',
-                required_msg='Treatment is planned. Please provide details'
-                             ' of the treatment')
         self.validate_surgery_plan()
 
     def validate_surgery_plan(self):
         oncology_treatment_plan = self.oncology_treatment_plan_cls.objects.filter(
             subject_visit=self.cleaned_data.get('subject_visit')
-            ).order_by('created').first()
+        ).order_by('created').first()
 
         if oncology_treatment_plan and oncology_treatment_plan.surgical_plan != YES:
             message = {'patient_had_surgery':
