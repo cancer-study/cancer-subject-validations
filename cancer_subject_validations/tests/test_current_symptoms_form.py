@@ -1,9 +1,10 @@
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.test import TestCase, tag
 from edc_constants.constants import YES, NO
 from ..form_validators import CurrentSymptomsFormValidation
 
 
+@tag('curr')
 class TestCurrentSymptomsForm(TestCase):
 
     def test_current_symptoms_invalid(self):
@@ -13,7 +14,7 @@ class TestCurrentSymptomsForm(TestCase):
         cleaned_data = {
             "any_worry": YES,
             "symptom_desc": None,
-            }
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -26,7 +27,7 @@ class TestCurrentSymptomsForm(TestCase):
         cleaned_data = {
             "any_worry": YES,
             "symptom_desc": 'ill',
-            }
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -41,7 +42,7 @@ class TestCurrentSymptomsForm(TestCase):
         cleaned_data = {
             "any_worry": NO,
             "symptom_desc": 'ill',
-            }
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -53,8 +54,9 @@ class TestCurrentSymptomsForm(TestCase):
         '''
         cleaned_data = {
             "any_worry": NO,
+            "severity": 'NOT_APPLICABLE',
             "symptom_desc": None,
-            }
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -69,7 +71,7 @@ class TestCurrentSymptomsForm(TestCase):
         cleaned_data = {
             "any_worry": YES,
             "patient_own_remedy": None,
-            }
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -82,7 +84,7 @@ class TestCurrentSymptomsForm(TestCase):
         cleaned_data = {
             "any_worry": YES,
             "patient_own_remedy": 'medic',
-            }
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -96,8 +98,9 @@ class TestCurrentSymptomsForm(TestCase):
         '''
         cleaned_data = {
             "any_worry": NO,
+            "severity": 'NOT_APPLICABLE',
             "patient_own_remedy": None,
-            }
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -112,7 +115,7 @@ class TestCurrentSymptomsForm(TestCase):
         cleaned_data = {
             "any_worry": NO,
             "patient_own_remedy": 'medic',
-            }
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
@@ -124,13 +127,14 @@ class TestCurrentSymptomsForm(TestCase):
         '''
         cleaned_data = {
             "any_worry": YES,
-            "severity": None,
-            }
+            "severity": 'NOT_APPLICABLE',
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)
         self.assertIn('severity', form_validator._errors)
 
+    @tag('at')
     def test_severity_valid(self):
         '''True if patient is worried and provides
         the level of severity.
@@ -138,7 +142,7 @@ class TestCurrentSymptomsForm(TestCase):
         cleaned_data = {
             "any_worry": YES,
             "severity": 'mild',
-            }
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -152,8 +156,8 @@ class TestCurrentSymptomsForm(TestCase):
         '''
         cleaned_data = {
             "any_worry": NO,
-            "severity": None,
-            }
+            "severity": 'NOT_APPLICABLE',
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         try:
@@ -168,7 +172,7 @@ class TestCurrentSymptomsForm(TestCase):
         cleaned_data = {
             "any_worry": NO,
             "severity": 'mild',
-            }
+        }
         form_validator = CurrentSymptomsFormValidation(
             cleaned_data=cleaned_data)
         self.assertRaises(ValidationError, form_validator.validate)

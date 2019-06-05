@@ -1,4 +1,5 @@
-from edc_constants.constants import YES
+from django.core.exceptions import ValidationError
+from edc_constants.constants import YES, NO
 from edc_form_validators import FormValidator
 
 
@@ -12,11 +13,15 @@ class CurrentSymptomsFormValidation(FormValidator):
                 self.required_if(
                     YES,
                     field='any_worry',
-                    field_required=required,
-                )
+                    field_required=required,)
 
-        self.applicable_if(
-            YES,
-            field='any_worry',
-            field_applicable='severity'
-        )
+        if (self.cleaned_data.get('any_worry') == NO
+                and self.cleaned_data.get('severity') != 'NOT_APPLICABLE'):
+            message = {'severity': 'This field is Not Applicable'}
+            self._errors.update(message)
+            raise ValidationError(message)
+        elif (self.cleaned_data.get('any_worry') == YES
+                and self.cleaned_data.get('severity') == 'NOT_APPLICABLE'):
+            message = {'severity': 'This field is Applicable'}
+            self._errors.update(message)
+            raise ValidationError(message)
