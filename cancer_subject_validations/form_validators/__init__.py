@@ -1,3 +1,5 @@
+from .activity_and_functioning_form_validation import (
+    ActivityAndFunctioningFormValidation)
 from .base_risk_assessment_cancer_validation import (
     BaseRiskAssessementCancerFormValidator)
 from .base_risk_assessment_chemical_form_validation import (
