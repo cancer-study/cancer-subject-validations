@@ -60,6 +60,7 @@ class TestActivityAndFunctioningForm(TestCase):
 
     def test_mates_flu_symptoms_yes_mates_count_specified(self):
         cleaned_data = {
+            'housemates_count': 2,
             'housemate_flu_symptoms': YES,
             'housemates_with_flu_symptoms_count': 2}
         form_validator = ActivityAndFunctioningFormValidation(
@@ -83,6 +84,38 @@ class TestActivityAndFunctioningForm(TestCase):
         cleaned_data = {
             'housemate_flu_symptoms': NO,
             'housemates_with_flu_symptoms_count': None}
+        form_validator = ActivityAndFunctioningFormValidation(
+            cleaned_data=cleaned_data)
+        try:
+            form_validator.validate()
+        except ValidationError as e:
+            self.fail(f'ValidationError unexpectedly raised. Got{e}')
+
+    def test_housemates_with_symptoms_gt_housemates_count(self):
+        cleaned_data = {
+            'housemates_with_flu_symptoms_count': 2,
+            'housemates_count': 1}
+        form_validator = ActivityAndFunctioningFormValidation(
+            cleaned_data=cleaned_data)
+        self.assertRaises(ValidationError, form_validator.validate)
+        self.assertIn(
+            'housemates_with_flu_symptoms_count', form_validator._errors)
+
+    def test_housemates_with_symptoms_lt_housemates_count(self):
+        cleaned_data = {
+            'housemates_with_flu_symptoms_count': 1,
+            'housemates_count': 2}
+        form_validator = ActivityAndFunctioningFormValidation(
+            cleaned_data=cleaned_data)
+        try:
+            form_validator.validate()
+        except ValidationError as e:
+            self.fail(f'ValidationError unexpectedly raised. Got{e}')
+
+    def test_housemates_with_symptoms_eq_housemates_count(self):
+        cleaned_data = {
+            'housemates_with_flu_symptoms_count': 2,
+            'housemates_count': 2}
         form_validator = ActivityAndFunctioningFormValidation(
             cleaned_data=cleaned_data)
         try:
