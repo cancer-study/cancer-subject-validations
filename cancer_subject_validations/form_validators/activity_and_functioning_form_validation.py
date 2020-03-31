@@ -16,6 +16,15 @@ class ActivityAndFunctioningFormValidation(FormValidator):
             field='housemate_flu_symptoms',
             field_required='housemates_with_flu_symptoms_count')
 
+        if self.cleaned_data.get(
+            'flu_symptoms') == YES and not (self.cleaned_data.get(
+                'housemate_flu_symptoms') == YES):
+            message = {
+                'housemate_flu_symptoms':
+                'You answered Question 10 yes, Question 13 should also be a yes'}
+            self._errors.update(message)
+            raise ValidationError(message)
+
         housemates_with_symptoms = self.cleaned_data.get(
             'housemates_with_flu_symptoms_count')
 
