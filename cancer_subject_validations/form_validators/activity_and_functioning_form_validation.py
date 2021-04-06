@@ -41,3 +41,20 @@ class ActivityAndFunctioningFormValidation(FormValidator):
                 }
                 self._errors.update(message)
                 raise ValidationError(message)
+
+        self.required_if(
+            YES,
+            field='had_covid',
+            field_required='symp_dt')
+
+        self.applicable_if(
+            YES,
+            field='had_covid',
+            field_applicable='pos_covid_test')
+
+        fields = ['num_of_members', 'membr_symp_dt']
+        for field in fields:
+            self.required_if(
+                YES,
+                field='member_w_covid',
+                field_required=field)
